@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.dao.UserDAO;
 import org.example.dao.UserDAOImpl;
 import org.example.model.User;
 import org.example.service.UserService;
