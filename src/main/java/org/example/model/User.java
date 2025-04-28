@@ -1,54 +1,72 @@
 package org.example.model;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-@Getter
-@Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private String name;
     private String email;
-    private Integer age;
+    private int age;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public User(Integer id, String name, String email, Integer age) {
-        this.id = id;
+    public int getId() {
+        return id;
+    }
+    public User() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
         this.age = age;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id)
-                && Objects.equals(name, user.name)
-                && Objects.equals(email, user.email)
-                && Objects.equals(age, user.age)
-                && Objects.equals(createdAt, user.createdAt);
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, name, email, age, createdAt);
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
 
