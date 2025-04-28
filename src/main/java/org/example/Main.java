@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl(new UserDAOImpl());
         Scanner scanner = new Scanner(System.in);
-        //testSergeyR
+
         while (true) {
             System.out.println("\n1. Создать пользователя");
             System.out.println("2. Показать всех пользователей");
