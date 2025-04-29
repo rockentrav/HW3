@@ -27,11 +27,11 @@ public class HibernateFactoryUtil {
                 settings.put(Environment.DRIVER,
                         System.getProperty("hibernate.connection.driver_class", "org.postgresql.Driver"));
                 settings.put(Environment.URL,
-                        System.getProperty("hibernate.connection.url"));
+                        System.getProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres"));
                 settings.put(Environment.USER,
-                        System.getProperty("hibernate.connection.username"));
+                        System.getProperty("hibernate.connection.username", "postgres"));
                 settings.put(Environment.PASS,
-                        System.getProperty("hibernate.connection.password"));
+                        System.getProperty("hibernate.connection.password", "1"));
 
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
                 settings.put(Environment.HBM2DDL_AUTO, "update");
@@ -40,7 +40,6 @@ public class HibernateFactoryUtil {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
 
-                // работа через ServiceRegistry т.к. это современный подход для Hibernate 5+
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties())
                         .build();

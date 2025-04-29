@@ -9,8 +9,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers     // включаем поддержку Testcontainers в JUnit Jupiter
 class UserDaoTest {
@@ -66,4 +67,37 @@ class UserDaoTest {
         assertNotNull(found.getCreatedAt());
     }
 
+    @Test
+    void testGetAll() {
+        User user1 = createTestUser("Alice");
+        User user2 = createTestUser("Bob");
+
+        userDAO.create(user1);
+        userDAO.create(user2);
+
+        List<User> users = userDAO.getAll();
+        assertTrue(users.size() >= 2);
+    }
+
+    @Test
+    void testUpdate() {
+        User user = createTestUser("BeforeUpdate");
+        userDAO.create(user);
+
+        user.setName("AfterUpdate");
+        userDAO.update(user);
+
+        User updated = userDAO.getById(user.getId());
+        assertEquals("AfterUpdate", updated.getName());
+    }
+
+    @Test
+    void testDelete() {
+        User user = createTestUser("ToDelete");
+        userDAO.create(user);
+
+        userDAO.delete(user.getId());
+
+        assertNull(userDAO.getById(user.getId()));
+    }
 }
