@@ -1,2 +1,3 @@
-2. Разработать консольное приложение(user-service) на Java, использующее Hibernate для взаимодействия с PostgreSQL, без использования Spring.
-3. Приложение должно поддерживать базовые операции CRUD (Create, Read, Update, Delete) над сущностью User.
+Updated CRUD app to the Spring with tests
+![image](https://github.com/user-attachments/assets/71e6932b-0228-4204-8f27-9b4517bbeaad)
+
