@@ -1,17 +1,19 @@
 package org.example.service;
 
-import org.example.dao.UserDAO;
 import org.example.model.User;
+import org.example.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    private final UserDAO userDao;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserDAO userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -20,26 +22,30 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Имя, Email и Age обязательны!");
         }
         user.setCreatedAt(LocalDateTime.now());
-        userDao.create(user);
+        userRepository.save(user);
     }
 
     @Override
     public User getById(int id) {
-        return userDao.getById(id);
+        return userRepository.findById((long) id)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
     }
 
     @Override
     public List<User> getAll() {
-        return userDao.getAll();
+        return userRepository.findAll();
     }
 
     @Override
     public void update(User user) {
-        userDao.update(user);
+        if (!userRepository.existsById(user.getId())) {
+            throw new RuntimeException("Пользователь не найден");
+        }
+        userRepository.save(user);
     }
 
     @Override
     public void delete(int id) {
-        userDao.delete(id);
+        userRepository.deleteById((long) id);
     }
 }

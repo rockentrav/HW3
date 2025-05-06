@@ -1,0 +1,28 @@
+### Создать пользователя
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "name": "Иван Иванов",
+  "email": "ivan@example.com",
+  "age": 30
+}
+
+### Получить всех пользователей
+GET http://localhost:8080/api/users
+
+### Получить пользователя по ID
+GET http://localhost:8080/api/users/1
+
+### Обновить пользователя
+PUT http://localhost:8080/api/users/1
+Content-Type: application/json
+
+{
+  "name": "Иван Охлобыстин",
+  "email": "updated@example.com",
+  "age": 31
+}
+
+### Удалить пользователя
+DELETE http://localhost:8080/api/users/1
