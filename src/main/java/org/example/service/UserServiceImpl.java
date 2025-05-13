@@ -1,5 +1,7 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
+import org.example.exception.UserNotFoundException;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -8,27 +10,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
-    public void create(User user) {
-        if (user.getName() == null || user.getEmail() == null || user.getAge() == 0) {
-            throw new IllegalArgumentException("Имя, Email и Age обязательны!");
-        }
+    public User create(User user) {
         user.setCreatedAt(LocalDateTime.now());
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public User getById(int id) {
         return userRepository.findById((long) id)
-                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
     }
 
     @Override
@@ -37,11 +33,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
+    public User update(User user) {
         if (!userRepository.existsById(user.getId())) {
-            throw new RuntimeException("Пользователь не найден");
+            throw new UserNotFoundException("Пользователь не найден");
         }
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
