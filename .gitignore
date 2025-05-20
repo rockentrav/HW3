@@ -1,3 +1,45 @@
-/.idea/
-/target/
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+**/logs/
+**/log/
+**/*.log
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IntelliJ-specific
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.swp
+
+# Environment & secrets
 .env
+*.key
+*.pem
+*.crt
+
+# Logs
+*.log
+logs/
+
+# Spring Boot devtools
+.spring-boot-devtools.properties
+
+# Test output
+test-output/
+
+# Other build output
+build/
